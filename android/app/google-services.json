@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "445675860901",
+    "firebase_url": "https://find-my-senior.firebaseio.com",
+    "project_id": "find-my-senior",
+    "storage_bucket": "find-my-senior.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:445675860901:android:6835aa19da3d133d5cae4c",
+        "android_client_info": {
+          "package_name": "org.geekhaven.find_my_senior"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "445675860901-m6p87js48cfhknlh66u8rk16gvarv769.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.geekhaven.find_my_senior",
+            "certificate_hash": "47eaadcd7bd9bf9dcfb300033b1a2c010a52adfd"
+          }
+        },
+        {
+          "client_id": "445675860901-cn0i11jpuakpqfob4ramohkoghsaokmu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1m3hfrbi37Z1nxx2rPenFOHtuGVucwbY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "445675860901-cn0i11jpuakpqfob4ramohkoghsaokmu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
