@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "445675860901-c0r5t12r0hadnabbc1054kvqhnbck4ui.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.geekhaven.find_my_senior",
+            "certificate_hash": "e1c3795470ad581f4925805ad198dedd8b1dbf45"
+          }
+        },
+        {
           "client_id": "445675860901-m6p87js48cfhknlh66u8rk16gvarv769.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
