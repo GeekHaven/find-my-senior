@@ -1,5 +1,5 @@
 import 'package:find_my_senior/authentication/authentication.dart';
-import 'package:find_my_senior/authentication/fill_details.dart';
+import 'package:find_my_senior/home_page.dart';
 import 'package:find_my_senior/services/shared_preferences.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +24,7 @@ class _RootState extends State<Root> {
       if (user != null) {
         print("user is logged in");
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => FillDetails(uid)));
+            context, MaterialPageRoute(builder: (context) => HomePage()));
       } else {
         print("user is not logged in");
         Navigator.push(
