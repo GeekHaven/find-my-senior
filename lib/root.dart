@@ -11,6 +11,7 @@ class Root extends StatefulWidget {
 
 class _RootState extends State<Root> {
   String uid;
+  String userName;
   getUid() async {
     uid = await SharedPreferencesUtil.getUserUid();
   }
