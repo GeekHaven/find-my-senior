@@ -8,6 +8,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  String name;
   final AuthService _auth = AuthService();
   @override
   void initState() {
@@ -45,15 +46,27 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
-      body: Center(
-        child: RaisedButton(
-          onPressed: () async {
-            _auth.signOutUser();
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => Root()));
-          },
-          child: Text('Logout'),
-        ),
+      body: ListView(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: TextFormField(
+              style: TextStyle(color: Colors.black),
+              decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.white,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(10),
+                    ),
+                  ),
+                  hintText: 'Search...',
+                  hintStyle: TextStyle(color: Colors.grey),
+                  icon: Icon(Icons.search)),
+              onChanged: (value) => name = value,
+            ),
+          ),
+        ],
       ),
     );
   }
