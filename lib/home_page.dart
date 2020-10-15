@@ -127,9 +127,10 @@ class _HomePageState extends State<HomePage> {
             ListTile(
               title: Text('Log Out'),
               trailing: Icon(Icons.exit_to_app),
-              onTap: () {
-                // Update the state of the app.
-                // ...
+              onTap: () async {
+                _auth.signOutUser();
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => Root()));
               },
             ),
           ],
