@@ -3,7 +3,6 @@ import 'package:find_my_senior/home_page.dart';
 import 'package:find_my_senior/services/database_services.dart';
 import 'package:find_my_senior/services/shared_preferences.dart';
 import 'package:flutter/material.dart';
-
 import '../models/multi_select_chip.dart';
 
 class FillDetails extends StatefulWidget {
