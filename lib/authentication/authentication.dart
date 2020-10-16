@@ -1,9 +1,18 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:find_my_senior/authentication/fill_details.dart';
 import 'package:find_my_senior/home_page.dart';
 import 'package:find_my_senior/services/auth_service.dart';
 import 'package:find_my_senior/services/shared_preferences.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+
+
+final GoogleSignIn googleSignIn = GoogleSignIn();
+final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+String useremail;
+
 
 class Authentication extends StatefulWidget {
   @override
@@ -48,14 +57,15 @@ class _AuthenticationState extends State<Authentication> {
             OutlineButton(
               splashColor: Colors.grey,
               onPressed: () async {
-                bool result = await _auth.signInGoogle();
-                if (result != false) {
-                  getUid();
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => HomePage()));
-                } else {
-                  print('error occured');
-                }
+               signInWithGoogle().then((result){
+                 if (result != false) {
+                   getUid();
+                   Navigator.push(context,
+                       MaterialPageRoute(builder: (context) => HomePage()));
+                 } else {
+                   print('error occured');
+                 }
+               });
               },
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(40),
@@ -135,4 +145,37 @@ class _AuthenticationState extends State<Authentication> {
       ),
     );
   }
+}
+Future<FirebaseUser> signInWithGoogle() async {
+  final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
+  final GoogleSignInAuthentication googleSignInAuthentication =
+  await googleSignInAccount.authentication;
+
+  final AuthCredential credential = GoogleAuthProvider.getCredential(
+    accessToken: googleSignInAuthentication.accessToken,
+    idToken: googleSignInAuthentication.idToken,
+  );
+
+  final AuthResult authResult =
+  await _firebaseAuth.signInWithCredential(credential);
+  final FirebaseUser user = authResult.user;
+
+  final FirebaseUser currentUser = await _firebaseAuth.currentUser();
+  if (currentUser != null) {
+    final QuerySnapshot result = await Firestore.instance
+        .collection('users')
+        .where("id", isEqualTo: currentUser.uid)
+        .getDocuments();
+    final List<DocumentSnapshot> document = result.documents;
+    if (document.length == 0) {
+      Firestore.instance
+          .collection('users')
+          .document(currentUser.uid)
+          .setData({
+        'id': currentUser.uid,
+        'useremail': currentUser.email,
+      });
+    } else {}
+  }
+  return user;
 }

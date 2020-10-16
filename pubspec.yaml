@@ -36,6 +36,7 @@ dependencies:
   animated_text_kit: ^2.4.0
   footer: ^0.0.3
 
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
