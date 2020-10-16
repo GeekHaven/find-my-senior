@@ -24,6 +24,7 @@ class AuthService {
           user = result.user;
           SharedPreferencesUtil.saveUserName(user.displayName);
           SharedPreferencesUtil.saveUserUid(user.uid);
+          SharedPreferencesUtil.saveUserEmail(user.email);
           return true;
         }
       }

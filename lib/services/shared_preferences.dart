@@ -5,6 +5,7 @@ class SharedPreferencesUtil {
   static String sharedPreferencesNameKey = "USERname";
   static String sharedPreferencesBranchKey = "USERbranch";
   static String sharedPreferencesBatchKey = "USERbatch";
+  static String sharedPreferencesEmailKey = "USERemail";
   static Future<void> saveUserUid(String uid) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return await prefs.setString(sharedPreferencesUIDKey, uid);
@@ -43,5 +44,15 @@ class SharedPreferencesUtil {
   static Future<int> getUserBatch() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getInt(sharedPreferencesBatchKey);
+  }
+
+  static Future<void> saveUserEmail(String email) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return await prefs.setString(sharedPreferencesEmailKey, email);
+  }
+
+  static Future<String> getUserEmail() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString(sharedPreferencesEmailKey);
   }
 }

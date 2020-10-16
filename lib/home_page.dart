@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:find_my_senior/root.dart';
 import 'package:find_my_senior/services/auth_service.dart';
@@ -11,11 +13,22 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  Future getUser() async {
+    Firestore firestore = Firestore.instance;
+    QuerySnapshot qn = await firestore
+        .collection('profiles')
+        .where('batch', isGreaterThan: batch)
+        .getDocuments();
+    return qn.documents;
+  }
+
   bool searchState = false;
   var queryResultSet = [];
   var tempSearchStore = [];
   final AuthService _auth = AuthService();
   String userName;
+  String email;
+  int batch;
   intiateSearch(value) {
     if (value.length == 0) {
       setState(() {
@@ -54,10 +67,26 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  getUserEmail() async {
+    email = await SharedPreferencesUtil.getUserEmail();
+    setState(() {
+      print(email);
+    });
+  }
+
+  getUserBatch() async {
+    batch = await SharedPreferencesUtil.getUserBatch();
+    setState(() {
+      print(batch);
+    });
+  }
+
   @override
   void initState() {
     super.initState();
     getUserName();
+    getUserEmail();
+    getUserBatch();
   }
 
   @override
@@ -103,12 +132,16 @@ class _HomePageState extends State<HomePage> {
           padding: EdgeInsets.zero,
           children: <Widget>[
             UserAccountsDrawerHeader(
-              accountEmail: null,
+              accountEmail: Text(
+                email,
+                style: TextStyle(fontSize: 10.0),
+              ),
               accountName: Text(
                 userName,
                 style: TextStyle(fontSize: 20.0),
               ),
               currentAccountPicture: CircleAvatar(
+                radius: 10.0,
                 backgroundColor: Colors.white,
                 child: Text(
                   userName.substring(0, 1),
@@ -136,20 +169,49 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
-      body: ListView(children: [
-        SizedBox(
-          height: 20.0,
-        ),
-        GridView.count(
-            crossAxisCount: 2,
-            crossAxisSpacing: 4.0,
-            mainAxisSpacing: 4.0,
-            primary: false,
-            shrinkWrap: true,
-            children: tempSearchStore.map((element) {
-              return buildResultCard(element);
-            }).toList())
-      ]),
+      body: Container(
+          child: !searchState
+              ? FutureBuilder(
+                  future: getUser(),
+                  builder: (_, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Center(
+                        child: Text('Loading...'),
+                      );
+                    } else {
+                      return ListView.builder(
+                          itemCount: snapshot.data.length,
+                          itemBuilder: (_, index) {
+                            return ListTile(
+                              contentPadding: EdgeInsets.symmetric(
+                                  horizontal: 30.0, vertical: 10.0),
+                              title: Text(snapshot.data[index].data["name"]),
+                              subtitle: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text("Branch : " +
+                                      snapshot.data[index].data["branch"]),
+                                  Text("Batch : " +
+                                      snapshot.data[index].data["batch"]
+                                          .toString()),
+                                ],
+                              ),
+                            );
+                          });
+                    }
+                  },
+                )
+              : ListView(children: [
+                  GridView.count(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 4.0,
+                      mainAxisSpacing: 4.0,
+                      primary: false,
+                      shrinkWrap: true,
+                      children: tempSearchStore.map((element) {
+                        return buildResultCard(element);
+                      }).toList())
+                ])),
     );
   }
 }
