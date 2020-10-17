@@ -11,11 +11,13 @@ class DatabaseServices {
     String name = await SharedPreferencesUtil.getUserName();
     String branch = await SharedPreferencesUtil.getUserBranch();
     int batch = await SharedPreferencesUtil.getUserBatch();
+    String email = await SharedPreferencesUtil.getUserEmail();
     return await profileCollection.document(uid).setData({
       'name': name,
       'branch': branch,
       'batch': batch,
       'uid': uid,
+      'email': email,
       'technical': FieldValue.arrayUnion(technical),
       'societies': FieldValue.arrayUnion(societies)
     });
