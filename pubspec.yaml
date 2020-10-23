@@ -35,6 +35,8 @@ dependencies:
   shared_preferences: ^0.5.12
   animated_text_kit: ^2.4.0
   footer: ^0.0.3
+  flutter_cache_manager: ^2.0.0
+  cached_network_image: ^2.3.3
 
 dev_dependencies:
   flutter_test:

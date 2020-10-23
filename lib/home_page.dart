@@ -1,11 +1,15 @@
 import 'dart:ui';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:find_my_senior/root.dart';
 import 'package:find_my_senior/services/auth_service.dart';
 import 'package:find_my_senior/services/searchservice.dart';
 import 'package:flutter/material.dart';
 import 'package:find_my_senior/services/shared_preferences.dart';
+
+
+import 'services/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -28,6 +32,7 @@ class _HomePageState extends State<HomePage> {
   final AuthService _auth = AuthService();
   String userName;
   String email;
+  String photoUrl;
   int batch;
   intiateSearch(value) {
     if (value.length == 0) {
@@ -81,12 +86,21 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  getUserPhoto() async{
+    photoUrl = await SharedPreferencesUtil.getUserPhoto();
+    setState(() {
+      print(photoUrl);
+    });
+  }
+
+
   @override
   void initState() {
     super.initState();
     getUserName();
     getUserEmail();
     getUserBatch();
+    getUserPhoto();
   }
 
   @override
@@ -189,6 +203,21 @@ class _HomePageState extends State<HomePage> {
                               subtitle: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
+                                  CachedNetworkImage(
+
+                                    imageUrl: "$photoUrl",
+                                    imageBuilder: (context, imageProvider) => Container(
+                                             decoration: BoxDecoration(
+                                                    image: DecorationImage(
+                                                     image: imageProvider,
+                                                     fit: BoxFit.cover,
+                                                     colorFilter:
+                                                     ColorFilter.mode(Colors.red, BlendMode.colorBurn)),
+                                                     ),
+                                        ),
+                                    placeholder: (context, url) => CircularProgressIndicator(),
+                                    errorWidget: (context, url, error) => Icon(Icons.error),
+                                    ),
                                   Text("Branch : " +
                                       snapshot.data[index].data["branch"]),
                                   Text("Batch : " +
@@ -231,4 +260,18 @@ Widget buildResultCard(data) {
       ),
     ),
   );
+}
+
+class UrlImage extends StatefulWidget {
+  @override
+  _UrlImageState createState() => _UrlImageState();
+}
+
+class _UrlImageState extends State<UrlImage> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      
+    );
+  }
 }

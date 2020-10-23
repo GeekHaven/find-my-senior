@@ -15,6 +15,30 @@
       },
       "oauth_client": [
         {
+          "client_id": "445675860901-4f55vp0d8uirl8t7umjcntk9u3dn7gnp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.geekhaven.find_my_senior",
+            "certificate_hash": "39ed76e5afae96e355a465ddbbce345ce8728994"
+          }
+        },
+        {
+          "client_id": "445675860901-p5sku4eru8le9o62b9go21vrh56quena.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.geekhaven.find_my_senior",
+            "certificate_hash": "fe591acc9db0596908f384b2322ebe1614df551b"
+          }
+        },
+        {
+          "client_id": "445675860901-p3hl6n5p67qho39pat2meqd3tckcev12.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.geekhaven.find_my_senior",
+            "certificate_hash": "6f32bce71480c81aba2f3e871aeb031a099847f9"
+          }
+        },
+        {
           "client_id": "445675860901-c0r5t12r0hadnabbc1054kvqhnbck4ui.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
