@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class Root extends StatefulWidget {
+  const Root();
   @override
   _RootState createState() => _RootState();
 }
@@ -25,17 +26,17 @@ class _RootState extends State<Root> {
       if (user != null) {
         print("user is logged in");
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => HomePage()));
+            context, MaterialPageRoute(builder: (context) => const HomePage()));
       } else {
         print("user is not logged in");
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => Authentication()));
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const Authentication()));
       }
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return const SizedBox();
   }
 }

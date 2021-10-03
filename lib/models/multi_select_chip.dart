@@ -4,7 +4,7 @@ class MultiSelectChip extends StatefulWidget {
   final List<String> list;
   final List<String> selected;
   final Function(List<String>) onSelectionChanged;
-  MultiSelectChip(this.list, this.selected, {this.onSelectionChanged});
+  const MultiSelectChip(this.list, this.selected, {this.onSelectionChanged});
   @override
   _MultiSelectChipState createState() => _MultiSelectChipState();
 }
@@ -12,7 +12,7 @@ class MultiSelectChip extends StatefulWidget {
 class _MultiSelectChipState extends State<MultiSelectChip> {
   bool isSelected = false;
   _buildChoiceList() {
-    List<Widget> choices = List();
+    List<Widget> choices = [];
     widget.list.forEach((item) {
       choices.add(Container(
         padding: const EdgeInsets.all(2.0),
