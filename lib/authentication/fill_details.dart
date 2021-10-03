@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:find_my_senior/home_page.dart';
 import 'package:find_my_senior/services/database_services.dart';
 import 'package:find_my_senior/services/shared_preferences.dart';
@@ -70,7 +69,7 @@ class _FillDetailsState extends State<FillDetails> {
               },
             ),
             actions: <Widget>[
-              FlatButton(
+              TextButton(
                 child: Text(action),
                 onPressed: () => Navigator.of(context).pop(),
               )
@@ -110,14 +109,14 @@ class _FillDetailsState extends State<FillDetails> {
                       });
                     }),
               ),
-              RaisedButton(
+              ElevatedButton(
                   onPressed: () {
                     _showSelectionDialog("Technical Interests",
                         technicalInterests, 'Save', technicalSelected);
                   },
                   child: Text('Click to Select Technical Interests')),
               Text(technicalSelected.join(" , ")),
-              RaisedButton(
+              ElevatedButton(
                   onPressed: () => _showSelectionDialog(
                       "Societies", societies, 'Save', societiesSelected),
                   child: Text('Click to Select Societies')),
@@ -140,7 +139,7 @@ class _FillDetailsState extends State<FillDetails> {
                   });
                 },
               ),
-              RaisedButton(
+              ElevatedButton(
                   onPressed: () async {
                     _setBranch();
                     await SharedPreferencesUtil.saveUserBranch(branch);

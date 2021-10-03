@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:find_my_senior/services/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
+  const HomePage();
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -94,10 +95,10 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: !searchState
-            ? Text('Find My Senior')
+            ? const Text('Find My Senior')
             : TextFormField(
-                style: TextStyle(color: Colors.black),
-                decoration: InputDecoration(
+                style: const TextStyle(color: Colors.black),
+                decoration: const InputDecoration(
                   icon: Icon(Icons.search, color: Colors.black),
                   hintText: 'Search...',
                   hintStyle: TextStyle(color: Colors.white),
@@ -109,7 +110,7 @@ class _HomePageState extends State<HomePage> {
         actions: <Widget>[
           !searchState
               ? IconButton(
-                  icon: Icon(Icons.search, color: Colors.white),
+                  icon: const Icon(Icons.search, color: Colors.white),
                   onPressed: () {
                     setState(() {
                       searchState = !searchState;
@@ -117,7 +118,7 @@ class _HomePageState extends State<HomePage> {
                   },
                 )
               : IconButton(
-                  icon: Icon(Icons.cancel, color: Colors.white),
+                  icon: const Icon(Icons.cancel, color: Colors.white),
                   onPressed: () {
                     setState(() {
                       searchState = !searchState;
@@ -134,36 +135,36 @@ class _HomePageState extends State<HomePage> {
             UserAccountsDrawerHeader(
               accountEmail: Text(
                 email,
-                style: TextStyle(fontSize: 10.0),
+                style: const TextStyle(fontSize: 10.0),
               ),
               accountName: Text(
                 userName,
-                style: TextStyle(fontSize: 20.0),
+                style: const TextStyle(fontSize: 20.0),
               ),
               currentAccountPicture: CircleAvatar(
                 radius: 10.0,
                 backgroundColor: Colors.white,
                 child: Text(
                   userName.substring(0, 1),
-                  style: TextStyle(fontSize: 30.0),
+                  style: const TextStyle(fontSize: 30.0),
                 ),
               ),
             ),
             ListTile(
-              title: Text('Edit Profile'),
-              trailing: Icon(Icons.account_circle),
+              title: const Text('Edit Profile'),
+              trailing: const Icon(Icons.account_circle),
               onTap: () {
                 // Update the state of the app.
                 // ...
               },
             ),
             ListTile(
-              title: Text('Log Out'),
-              trailing: Icon(Icons.exit_to_app),
+              title: const Text('Log Out'),
+              trailing: const Icon(Icons.exit_to_app),
               onTap: () async {
                 _auth.signOutUser();
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => Root()));
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const Root()));
               },
             ),
           ],
@@ -175,15 +176,15 @@ class _HomePageState extends State<HomePage> {
                   future: getUser(),
                   builder: (_, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Center(
-                        child: Text('Loading...'),
+                      return const Center(
+                        child: const Text('Loading...'),
                       );
                     } else {
                       return ListView.builder(
                           itemCount: snapshot.data.length,
                           itemBuilder: (_, index) {
                             return ListTile(
-                              contentPadding: EdgeInsets.symmetric(
+                              contentPadding: const EdgeInsets.symmetric(
                                   horizontal: 30.0, vertical: 10.0),
                               title: Text(snapshot.data[index].data["name"]),
                               subtitle: Column(
@@ -218,13 +219,14 @@ class _HomePageState extends State<HomePage> {
 
 Widget buildResultCard(data) {
   return Card(
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+    shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(10))),
     elevation: 2.0,
     child: Container(
       child: Text(
         data['name'],
         textAlign: TextAlign.center,
-        style: TextStyle(
+        style: const TextStyle(
           color: Colors.black,
           fontSize: 20.0,
         ),
